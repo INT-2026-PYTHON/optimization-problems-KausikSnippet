@@ -91,3 +91,41 @@ the overall algorithm runs in O(n).
 =================================================
 
 """
+
+# Brute Force Method
+def count_pairs_brute(nums, target):
+    count = 0
+
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            if nums[i] + nums[j] == target:
+                count = count + 1
+
+    return count
+
+
+# Optimized Method using Dictionary
+def count_pairs_fast(nums, target):
+    freq = {}
+    count = 0
+
+    for num in nums:
+        need = target - num
+
+        if need in freq:
+            count = count + freq[need]
+
+        if num in freq:
+            freq[num] = freq[num] + 1
+        else:
+            freq[num] = 1
+
+    return count
+
+
+# Input
+nums = [1, 5, 7, -1, 5]
+target = 6
+
+print("Brute Force:", count_pairs_brute(nums, target))
+print("Optimized:", count_pairs_fast(nums, target))
